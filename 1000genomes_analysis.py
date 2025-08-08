@@ -123,6 +123,8 @@ df_filtered = df[~mask]
 
 os.makedirs("1000genomes", exist_ok=True)
 df_filtered.to_csv(f'1000genomes/chr{i}_1000genomes_freqs2.csv',index=False)
+
+#Rows that correspond to the same position in the genome (['POS'] field) are removed on the cluster
 print(f"chr{i} - Variants written: {row_count}")
 print(f"chr{i} - Non-SNPs filtered: {non_snp}")
 print(f"chr{i} - Too many ALT alleles filtered: {too_many_alts}")
