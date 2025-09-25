@@ -8,10 +8,10 @@ import itertools
 #set counter used to get data for correct chromosome
 chrom = os.environ.get('SLURM_ARRAY_TASK_ID')
 
-#Load mutation frequency data, load hapmap data from Ensembl (https://ftp.ensembl.org/pub/release-114/gtf/homo_sapiens/)
-file_path = f'1000genomes/dedup_chr{chrom}_1000genomes_freqs2.csv'
+#Load mutation frequency data, load hapmap data from Ensembl (https://ftp.ensembl.org/pub/grch37/release-87/gtf/homo_sapiens/)
+file_path = f'1000genomes/chr{chrom}_1000genomes_freqs3_uniquePOS.csv'
 mutations_df = pd.read_csv(file_path)
-hapmap_df = pd.read_csv('Homo_sapiens.GRCh38.114.chr.gtf.gz', sep='\t', comment='#', header=None,
+hapmap_df = pd.read_csv('Homo_sapiens.GRCh37.87.chr.gtf.gz', sep='\t', comment='#', header=None,
                         names=['seqname','source','feature','start','end','score','strand','frame','attribute'])
 
 hapmap_df['seqname'] = hapmap_df['seqname'].astype(str)
@@ -48,5 +48,5 @@ for idx, row in mutations_df.iterrows():
 #Save to csv
 mutations_df['annotation'] = annotations
 os.makedirs("annotated_mutations", exist_ok=True)
-mutations_df.to_csv(f'annotated_mutations/annotated_1000genomes_chrom{chrom}.csv', index=False)
+mutations_df.to_csv(f'annotated_mutations/annotated_chrom{chrom}_1000genomes37.csv', index=False)
             
